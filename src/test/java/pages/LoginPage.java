@@ -30,8 +30,8 @@ public class LoginPage extends MenuPage{
 		}
 		
 		public LoginPage enterPassword(String password) {
-			driver.findElement(usernameTxt).sendKeys(password);
-			return this;
+			driver.findElement(passwordTxt).sendKeys(password);
+			return this; 
 		}
 		
 		public HomePage clickOnLogin() {
@@ -39,17 +39,17 @@ public class LoginPage extends MenuPage{
 			return new HomePage();
 		}
 		
-//		public LoginPage clickOnLoginWithInvalidCredential() {
-//			oWrap.click(driver.findElement(loginBtn), "Login Button");
-//			return this;
-//		}
-//		
-//		public boolean validateErrorMsg() {
-//			if(oWrap.verifyDisplayedwithReturn(driver.findElement(loginFailureMsg), "Login Failure Msg")) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}
+		public LoginPage clickOnLoginWithInvalidCredential() {
+			driver.findElement(loginBtn).click();
+			return this;
+		} 
+		
+		public boolean validateErrorMsg() {
+			if(driver.findElement(loginFailureMsg).isDisplayed()) {
+				return true;
+			}else {
+				return false;
+			}
+		}
 
 }

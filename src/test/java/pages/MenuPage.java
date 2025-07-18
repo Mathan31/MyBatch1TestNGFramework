@@ -15,7 +15,7 @@ public class MenuPage extends BaseClass{
 	protected By salesLink = By.xpath("//span[@part='formatted-rich-text']/p[text()='Sales']");
 	protected By logoutLink = By.xpath("//a[text()='Log Out']");
 	protected By userImg=By.xpath("(//span[@class='uiImage']/parent::div[@data-aura-class='forceEntityIcon'])[1]");
-	protected WebDriver driver;
+	//protected WebDriver driver;
 
 
 	public MenuPage clickOnAppLauncher() {
@@ -30,17 +30,18 @@ public class MenuPage extends BaseClass{
 	}
 	
 
-//
-//	public SalesPage clickOnSales() {
-//		oWrap.moveToElement(driver.findElement(salesLink), "Sales Link");
-//		oWrap.click(driver.findElement(salesLink), "Sales Link");
-//		return new SalesPage(driver,node); 
-//	}
-//	
-//	public MenuPage clickOnViewAll() {
-//		oWrap.click(driver.findElement(viewAllLink), "viewAll Link");
-//		return this;
-//	}
+
+	public SalesPage clickOnSales() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(driver.findElement(salesLink)).perform();
+		driver.findElement(salesLink).click();
+		return new SalesPage(); 
+	}
+	
+	public MenuPage clickOnViewAll() {
+		driver.findElement(viewAllLink).click();
+		return this;
+	}
 	
 	public MenuPage clickUserImg()   {
 		try {

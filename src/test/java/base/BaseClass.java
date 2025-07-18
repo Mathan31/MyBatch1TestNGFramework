@@ -10,9 +10,9 @@ import factory.BrowserFactoryManager;
 
 public class BaseClass {
 	
-	public  WebDriver driver;
-	public  String browserType = "chrome"; // value should be either chorme or edge
-	public String sURL = "https://login.salesforce.com/";
+	public static WebDriver driver;
+	public static String browserType = "chrome"; // value should be either chorme or edge
+	public static String sURL = "https://login.salesforce.com/";
 	
 	@BeforeClass
 	public  void invokeBrowser() {
