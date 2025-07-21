@@ -42,16 +42,14 @@ public class SalesPage extends MenuPage{
 		return this;
 	}
 	
-	
-	
 	public SalesPage clickAndSelectLeadStatus() {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(driver.findElement(noOfEmployee)).perform();
 		try {
 		Thread.sleep(3000);
 		driver.findElement(leadStatusBtn).click();
+		Thread.sleep(2000);
 		driver.findElement(statusTxt).click();
-		Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
