@@ -9,10 +9,11 @@ import org.testng.annotations.DataProvider;
 
 import factory.BrowserFactoryManager;
 import utils.PropertyFileUtil;
+import wrapper.HTMLReport;
 
-public class BaseClass {
+public class BaseClass extends HTMLReport{
 	
-	public static WebDriver driver;
+	public WebDriver driver; //null --> 123 --> null
 	public static String propFileName = "Environment";
 	public static String browserType = PropertyFileUtil.readDataFromPropertyFile(propFileName, "Browser"); // value should be either chorme or edge
 	public static String sURL = PropertyFileUtil.readDataFromPropertyFile(propFileName, "URL");
@@ -36,6 +37,12 @@ public class BaseClass {
 	public Object[][] excelData() throws Exception {
 		Object[][] values = utils.DataProviderObject.getValue(excelFileName);
 		return values;
+	}
+
+	@Override
+	public String takeScreenshot() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 

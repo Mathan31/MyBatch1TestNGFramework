@@ -16,7 +16,12 @@ public class SalesPage extends MenuPage{
 	private By statusTxt=By.xpath("//span[@title='Working - Contacted']");
 	private By savebtn=By.xpath("//button[@name='SaveEdit']");
 	private By noOfEmployee = By.xpath("//input[@name='NumberOfEmployees']");
-	//private WebDriver driver;
+	private WebDriver driver;
+	
+	public SalesPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+	}
 
 	
 	public SalesPage clickOnLeadsLink() {
@@ -47,12 +52,16 @@ public class SalesPage extends MenuPage{
 		actions.moveToElement(driver.findElement(noOfEmployee)).perform();
 		try {
 		Thread.sleep(3000);
-		driver.findElement(leadStatusBtn).click();
+		//driver.findElement(leadStatusBtn).click();
+		actions.moveToElement(driver.findElement(leadStatusBtn)).click().perform();
 		Thread.sleep(2000);
-		driver.findElement(statusTxt).click();
+		actions.moveToElement(driver.findElement(statusTxt)).click().perform();
+		//driver.findElement(statusTxt).click();
+		//actions.moveToElement(driver.findElement(statusTxt)).click().perform();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			System.out.println(e.getMessage());
 		}
 		
 		return this;
