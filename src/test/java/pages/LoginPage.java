@@ -3,60 +3,66 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import base.BaseClass;
+import com.aventstack.extentreports.ExtentTest;
 
-public class LoginPage extends MenuPage{
-	
-	private By usernameTxt=By.id("username");
-	private By passwordTxt=By.id("password");
-	private By loginBtn=By.id("Login");
-	private By remembermeChBox=By.xpath("//label[text()='Remember me']");
-	private By forgotLink=By.id("forgot_password_link");
+import base.BaseClass;
+import wrapper.SeleniumWrapper;
+
+public class LoginPage extends MenuPage {
+
+	private By usernameTxt = By.id("username");
+	private By passwordTxt = By.id("password");
+	private By loginBtn = By.id("Login");
+	private By remembermeChBox = By.xpath("//label[text()='Remember me']");
+	private By forgotLink = By.id("forgot_password_link");
 	private By loginFailureMsg = By.cssSelector("#error");
 	private WebDriver driver;
-	
-	public LoginPage(WebDriver driver) {
-		super(driver);
+	private SeleniumWrapper oWrap;
+
+	public LoginPage(WebDriver driver, ExtentTest node) {  
+		super(driver, node);
 		this.driver = driver;
+		this.node = node;
+		oWrap = new SeleniumWrapper(driver, node);
 	}
-	
+
 	public boolean verifyLoginElements() {
-		
-		if(driver.findElement(usernameTxt).isDisplayed() &&
-				driver.findElement(passwordTxt).isDisplayed()&&
-				driver.findElement(loginBtn).isDisplayed()){
-				return true;
-			}else {
-				return false;
-			}
+
+		if (oWrap.verifyDisplayedwithReturn(driver.findElement(usernameTxt), "User Name")
+				&& oWrap.verifyDisplayedwithReturn(driver.findElement(passwordTxt), "Password")
+				&& oWrap.verifyDisplayedwithReturn(driver.findElement(loginBtn), "Login Button")) {
+			return true;
+		} else {
+			return false;
 		}
-		
-		public LoginPage enterUserName(String userName) {
-			driver.findElement(usernameTxt).sendKeys(userName);
-			return this;
+	}
+
+	public LoginPage enterUserName(String userName) {
+		oWrap.type(driver.findElement(usernameTxt), userName);
+		return this;
+	}
+
+	public LoginPage enterPassword(String password) {
+		oWrap.type(driver.findElement(passwordTxt), password);
+		return this;
+	}
+
+	public HomePage clickOnLogin() {
+		oWrap.click(driver.findElement(loginBtn), "Login Button");
+		return new HomePage(driver,node);
+	}
+
+	public LoginPage clickOnLoginWithInvalidCredential() {
+		oWrap.click(driver.findElement(loginBtn), "Login Button");
+		return this;
+	}
+
+	public boolean validateErrorMsg() {
+		if (oWrap.verifyDisplayedwithReturn(driver.findElement(loginFailureMsg), "Failure Msg")) {
+			return true;
+		} else {
+			return false;
 		}
-		
-		public LoginPage enterPassword(String password) {
-			driver.findElement(passwordTxt).sendKeys(password);
-			return this; 
-		}
-		
-		public HomePage clickOnLogin() {
-			driver.findElement(loginBtn).click();
-			return new HomePage(driver);
-		}
-		
-		public LoginPage clickOnLoginWithInvalidCredential() {
-			driver.findElement(loginBtn).click();
-			return this;
-		} 
-		
-		public boolean validateErrorMsg() {
-			if(driver.findElement(loginFailureMsg).isDisplayed()) {
-				return true;
-			}else {
-				return false;
-			}
-		}
+	}
 
 }
